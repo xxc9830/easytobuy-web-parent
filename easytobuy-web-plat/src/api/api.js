@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let base = 'https://www.easy-mock.com/mock/5c511af2cc522243103f0a3c';
+let base = '';
 
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
 
