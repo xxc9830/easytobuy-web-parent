@@ -1,6 +1,6 @@
 <template>
   <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-    <h3 class="title">系统登录</h3>
+    <h3 class="title">欢迎登录</h3>
     <el-form-item prop="account">
       <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
@@ -16,8 +16,7 @@
 </template>
 
 <script>
-  import { requestLogin } from '../api/api';
-  //import NProgress from 'nprogress'
+
   export default {
     data() {
       return {
@@ -51,20 +50,44 @@
             this.logining = true;
             //NProgress.start();
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
-            requestLogin(loginParams).then(data => {
+            //自己使用之前全局的axios发送请求
+              //http://127.0.0.1:8001/login
+              this.$http.post("/login",loginParams)
+                  .then(data=>{
+                      this.logining = false;
+                      let { message, returnData, success } = data.data;
+                      //失败
+                      if (!success) {
+                          this.$message({
+                              message: message,
+                              type: 'error'
+                          });
+                      } else {
+                          sessionStorage.setItem('user', JSON.stringify("user"));
+                          //成功之后的路由的跳转
+                          this.$router.push({ path: '/table' });
+                      }
+                  })
+
+
+
+            /*requestLogin(loginParams).then(data => {
               this.logining = false;
               //NProgress.done();
-              let { msg, code, user } = data;
-              if (code !== 200) {
+                console.debug(data);
+              let { message, returnData, success } = data;
+              //失败
+              if (!success) {
                 this.$message({
-                  message: msg,
+                  message: message,
                   type: 'error'
                 });
               } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
+                sessionStorage.setItem('user', JSON.stringify(returnData));
+                //成功之后的路由的跳转
                 this.$router.push({ path: '/table' });
               }
-            });
+            });*/
           } else {
             console.log('error submit!!');
             return false;
