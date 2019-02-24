@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/easytobuy-web-ecommerce/easytobuy-web-ecommerce.iml" filepath="$PROJECT_DIR$/easytobuy-web-ecommerce/easytobuy-web-ecommerce.iml" />
       <module fileurl="file://$PROJECT_DIR$/easytobuy-web-plat/easytobuy-web-plat.iml" filepath="$PROJECT_DIR$/easytobuy-web-plat/easytobuy-web-plat.iml" />
     </modules>
   </component>
